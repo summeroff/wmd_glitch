@@ -12,6 +12,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create main.tex
+        run: |
+          echo "\\documentclass{book}" > main.tex
+          echo "\\begin{document}" >> main.tex
+          for file in book-part*.tex; do
+            echo "\\input{\${file%.tex}}" >> main.tex
+          done
+          echo "\\end{document}" >> main.tex
+
       - name: Setup TeXLive
         uses: ./.github/actions/setup-texlive
         with:
