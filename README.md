@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the source files for a fictional story, "WMD Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. It follows Lila, a young woman in Los Angeles, who experiences a disturbing personality shift triggered by alcohol, transforming her into a hyper-aware, violent version of herself – a consequence of a mysterious virtual reality trial.
+This repository contains the source files for a fictional story, "WMD Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. 
 
-## Story Summary (Lore)
+## Story Summary (Lore) - Spoiler alert!
 
 See the full lore summary in `lore_summary.txt`.
 
@@ -25,10 +25,9 @@ Part 3 is planned.
 
 ## Repository Structure
 
-*   `book-part1.tex`: LaTeX source file for Part 1.
-*   `book-part2.tex`: LaTeX source file for Part 2.
-*   `lore_summary.txt`: A text file containing a more detailed summary of the story's lore and background information.
-*   `README.md`: This file, providing an overview of the project.
+*  LaTeX sources
+*  A text file containing a more detailed summary of the story's lore and background information.
+*  Release scripts
 
 ## License
 
@@ -36,8 +35,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Future Plans
 
-*   **Completion of Part 3:**  The story will be continued and completed in a third part.
-*   **GitHub Actions for Releases:**  Automated builds will be implemented using GitHub Actions to generate book reader formats (e.g., PDF, EPUB, MOBI) for easier reading.
+* **Completion of Part 3:**  The story will be continued and completed in a third part.
+* **GitHub Actions for Releases:**  Automated builds will be implemented using GitHub Actions to generate book reader formats (e.g., PDF, EPUB, MOBI) for easier reading.
 * **Refinement and Editing** Edits based on previous suggestions will be added.
 
 ## Contributing
@@ -46,7 +45,7 @@ While this is primarily a solo project, feedback and suggestions are welcome! Fe
 
 ## Author
 
-Summer Of F
+SummerOfF
 
 ## Getting Started (for building the LaTeX files)
 
