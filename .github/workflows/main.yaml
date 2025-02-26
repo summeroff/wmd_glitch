@@ -16,29 +16,23 @@ jobs:
         uses: teatimeguest/setup-texlive-action@v3
         with:
           packages: >-
-            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
+            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed zref needspace hyperref fancyhdr
 
-      - name: Download Open Sans from Google Fonts Repo
+      - name: Install Pandoc
+        uses: pandoc/actions/setup@v1
+        with:
+          version: '3.5'
+
+      - name: Install system fonts
         run: |
-          wget https://github.com/google/fonts/archive/main.zip -O google-fonts.zip
-          unzip google-fonts.zip -d google-fonts
-          mkdir -p ./fonts
-          cp google-fonts-main/ofl/opensans/*.ttf ./fonts/
-      - name: List Downloaded Fonts
-        run: ls -R ./fonts/
-
-      - name: Verify XeLaTeX Installation
-        run: |
-          which xelatex || echo "XeLaTeX not found!"
-          xelatex --version
-
-      - name: Show book_wmd_to_glitch.tex
-        run: cat book_wmd_to_glitch.tex
+          sudo apt-get update
+          sudo apt-get install -y fonts-roboto
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          latexmk -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
-
+          export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
+          latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
+        
       - name: Generate HTML with Pandoc
         run: |
           pandoc -s book_wmd_to_glitch.tex -o book_wmd_to_glitch-${{ github.ref_name }}.html
