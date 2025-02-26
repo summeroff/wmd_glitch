@@ -12,20 +12,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup TeXLive
-        uses: ./.github/actions/setup-texlive
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
         with:
-          requirements-file: '.github/texlive/requirements.txt'
+          packages: >-
+            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys
 
-      - name: Show book_wmd_to_glitch.tex
-        run: cat book_wmd_to_glitch.tex
+      - name: Install Pandoc
+        uses: pandoc/actions/setup@v1
+        with:
+          version: '3.5'
 
-      - name: Compile LaTeX
-        run: latexmk -pdf book_wmd_to_glitch.tex
-
-      - name: Compile LaTeX to PDF
+      - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          latexmk -pdf book_wmd_to_glitch.tex
+          export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
+          latexmk -r .latexmkrc -pdf -xelatex -interaction=nonstopmode book_wmd_to_glitch.tex
 
       - name: Generate HTML with Pandoc
         run: |
@@ -48,63 +49,19 @@ jobs:
         run: |
           ebook-convert book_wmd_to_glitch-${{ github.ref_name }}.epub book_wmd_to_glitch-${{ github.ref_name }}.mobi
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Create and Upload Release
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
-
-      - name: Upload PDF
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book_wmd_to_glitch.pdf
-          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.pdf
-          asset_content_type: application/pdf
-
-      - name: Upload HTML
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.html
-          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.html
-          asset_content_type: text/html
-
-      - name: Upload EPUB
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.epub
-          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.epub
-          asset_content_type: application/epub+zip
-
-      - name: Upload FB2
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.fb2
-          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.fb2
-          asset_content_type: application/x-fictionbook+xml
-
-      - name: Upload MOBI
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.mobi
-          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.mobi
-          asset_content_type: application/x-mobipocket-ebook
+          generate_release_notes: true
+          files: |
+            book_wmd_to_glitch.pdf
+            book_wmd_to_glitch-${{ github.ref_name }}.html
+            book_wmd_to_glitch-${{ github.ref_name }}.epub
+            book_wmd_to_glitch-${{ github.ref_name }}.fb2
+            book_wmd_to_glitch-${{ github.ref_name }}.mobi
