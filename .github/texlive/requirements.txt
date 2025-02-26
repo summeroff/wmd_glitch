@@ -1,4 +1,0 @@
-latexmk
-fontspec
-xetex
-opensans

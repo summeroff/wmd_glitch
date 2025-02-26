@@ -12,10 +12,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup TeXLive
-        uses: ./.github/actions/setup-texlive
+      - name: Setup TeX Live
+        uses: texlive-action/setup-texlive@v3
         with:
-          requirements-file: '.github/texlive/requirements.txt'
+          packages: >-
+            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
+
+      - name: Download Open Sans Font
+        run: |
+          wget "https://fonts.google.com/download?family=Open%20Sans" -O Open_Sans.zip
+          unzip Open_Sans.zip -d ./fonts/
+      - name: List Downloaded Fonts
+        run: ls -R ./fonts/
+
+      - name: Verify XeLaTeX Installation
+        run: |
+          which xelatex || echo "XeLaTeX not found!"
+          xelatex --version
 
       - name: Show book_wmd_to_glitch.tex
         run: cat book_wmd_to_glitch.tex
