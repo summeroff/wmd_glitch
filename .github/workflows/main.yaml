@@ -18,10 +18,12 @@ jobs:
           packages: >-
             latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
 
-      - name: Download Open Sans Font
+      - name: Download Open Sans from Google Fonts Repo
         run: |
-          wget "https://fonts.google.com/download?family=Open%20Sans" -O Open_Sans.zip
-          unzip Open_Sans.zip -d ./fonts/
+          wget https://github.com/google/fonts/archive/main.zip -O google-fonts.zip
+          unzip google-fonts.zip -d google-fonts
+          mkdir -p ./fonts
+          cp google-fonts-main/ofl/opensans/*.ttf ./fonts/
       - name: List Downloaded Fonts
         run: ls -R ./fonts/
 
