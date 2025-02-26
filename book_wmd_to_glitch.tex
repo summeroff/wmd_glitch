@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[xetex,x11names]{xcolor} % Specify xetex driver
+\usepackage[xetex,x11names]{xcolor}
 \usepackage{geometry}
 \geometry{a4paper, margin=1.5in}
 \usepackage{microtype}
@@ -15,11 +15,11 @@
 \setmainfont{Liberation Sans}
 
 % Custom command for notes
-\newcommand{\note}[1]{\texttt{\small \color{DarkGray} #1}}
+\newcommand{\note}[1]{\texttt{\small #1}}
 
 % Modernize section headings
-\titleformat{\part}[block]{\Large\bfseries\color{NavyBlue}}{\thepart}{1em}{}
-\titleformat{\section}[block]{\large\bfseries\color{Teal}}{\thesection}{1em}{}
+\titleformat{\part}[block]{\Large\bfseries}{\thepart}{1em}{}
+\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 
 % Ragged-right text
