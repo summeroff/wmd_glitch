@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup TeX Live
-        uses: texlive-action/setup-texlive@v3
+        uses: teatimeguest/setup-texlive-action@v3
         with:
           packages: >-
             latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
