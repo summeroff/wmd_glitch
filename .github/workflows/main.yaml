@@ -16,7 +16,7 @@ jobs:
         uses: teatimeguest/setup-texlive-action@v3
         with:
           packages: >-
-            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft liberation geometry
+            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry
 
       - name: Verify XeLaTeX and Packages Installation
         run: |
