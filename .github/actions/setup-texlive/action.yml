@@ -17,3 +17,5 @@ runs:
         if [ -f "${{ inputs.requirements-file }}" ]; then
           xargs -0 sudo apt-get install -y < <(tr \\n \\0 <"${{ inputs.requirements-file }}")
         fi
+    - shell: bash
+      run: sudo apt-get install -y pandoc
