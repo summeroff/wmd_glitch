@@ -1,8 +1,8 @@
-# WMD Glitch
+# WMD: To Glitch
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains the source files for a fictional story, "WMD Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. 
+This repository contains the source files for a fictional story, "WMD: To Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. 
 
 ## Story Summary (Lore) - Spoiler alert!
 

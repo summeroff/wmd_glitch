@@ -17,35 +17,27 @@ jobs:
         with:
           requirements-file: '.github/texlive/requirements.txt'
 
-      - name: Create main.tex
-        run: |
-          echo '\documentclass{book}' > main.tex
-          echo '\begin{document}' >> main.tex
-          for file in book-part*.tex; do
-            echo "\input{${file%.tex}}" >> main.tex
-          done
-          echo '\end{document}' >> main.tex
-      - name: Show main.tex
-        run: cat main.tex
+      - name: Show book_wmd_to_glitch.tex
+        run: cat book_wmd_to_glitch.tex
+
       - name: Compile LaTeX
-        run: latexmk -pdf main.tex
+        run: latexmk -pdf book_wmd_to_glitch.tex
 
       - name: Compile LaTeX to PDF
         run: |
-          latexmk -pdf main.tex
-          mv main.pdf book.pdf
+          latexmk -pdf book_wmd_to_glitch.tex
 
       - name: Generate HTML with Pandoc
         run: |
-          pandoc -s main.tex -o book.html
+          pandoc -s book_wmd_to_glitch.tex -o book_wmd_to_glitch-${{ github.ref_name }}.html
 
       - name: Generate EPUB with Pandoc
         run: |
-          pandoc -s main.tex -o book.epub
+          pandoc -s book_wmd_to_glitch.tex -o book_wmd_to_glitch-${{ github.ref_name }}.epub
 
       - name: Generate FB2 with Pandoc
         run: |
-          pandoc -s main.tex -o book.fb2
+          pandoc -s book_wmd_to_glitch.tex -o book_wmd_to_glitch-${{ github.ref_name }}.fb2
 
       - name: Install Calibre
         run: |
@@ -54,7 +46,7 @@ jobs:
 
       - name: Convert EPUB to MOBI
         run: |
-          ebook-convert book.epub book.mobi
+          ebook-convert book_wmd_to_glitch-${{ github.ref_name }}.epub book_wmd_to_glitch-${{ github.ref_name }}.mobi
 
       - name: Create Release
         id: create_release
@@ -73,8 +65,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book.pdf
-          asset_name: book.pdf
+          asset_path: book_wmd_to_glitch.pdf
+          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.pdf
           asset_content_type: application/pdf
 
       - name: Upload HTML
@@ -83,8 +75,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book.html
-          asset_name: book.html
+          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.html
+          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.html
           asset_content_type: text/html
 
       - name: Upload EPUB
@@ -93,8 +85,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book.epub
-          asset_name: book.epub
+          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.epub
+          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.epub
           asset_content_type: application/epub+zip
 
       - name: Upload FB2
@@ -103,8 +95,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book.fb2
-          asset_name: book.fb2
+          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.fb2
+          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.fb2
           asset_content_type: application/x-fictionbook+xml
 
       - name: Upload MOBI
@@ -113,6 +105,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: book.mobi
-          asset_name: book.mobi
+          asset_path: book_wmd_to_glitch-${{ github.ref_name }}.mobi
+          asset_name: book_wmd_to_glitch-${{ github.ref_name }}.mobi
           asset_content_type: application/x-mobipocket-ebook
