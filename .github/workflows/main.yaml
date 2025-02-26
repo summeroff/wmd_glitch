@@ -25,13 +25,17 @@ jobs:
           kpsewhich geometry.sty || echo "geometry.sty not found!"
           kpsewhich xcolor.sty || echo "xcolor.sty not found!"
           kpsewhich fontspec.sty || echo "fontspec.sty not found!"
+          kpsewhich parskip.sty || echo "parskip.sty not found!"
+          kpsewhich kvoptions.sty || echo "kvoptions.sty not found!"
+          kpsewhich ltxcmds.sty || echo "ltxcmds.sty not found!"
+          kpsewhich kvsetkeys.sty || echo "kvsetkeys.sty not found!"
 
       - name: Show book_wmd_to_glitch.tex
         run: cat book_wmd_to_glitch.tex
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          latexmk -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
+          latexmk -xelatex -pdf -interaction=nonstopmode -f book_wmd_to_glitch.tex
 
       - name: Generate HTML with Pandoc
         run: |
