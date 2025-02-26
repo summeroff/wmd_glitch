@@ -18,33 +18,15 @@ jobs:
           packages: >-
             latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys
 
-      - name: Debug TeX Live Environment
-        run: |
-          echo "PATH: $PATH"
-          which latexmk
-          which xelatex
-          which pdflatex || echo "pdflatex not found, which is fine"
-          latexmk --version
-          kpsewhich xcolor.sty fontspec.sty geometry.sty
-
-      - name: Verify XeLaTeX and Packages Installation
-        run: |
-          which xelatex || echo "XeLaTeX not found!"
-          xelatex --version
-          kpsewhich geometry.sty || echo "geometry.sty not found!"
-          kpsewhich xcolor.sty || echo "xcolor.sty not found!"
-          kpsewhich fontspec.sty || echo "fontspec.sty not found!"
-          kpsewhich parskip.sty || echo "parskip.sty not found!"
-          kpsewhich kvoptions.sty || echo "kvoptions.sty not found!"
-          kpsewhich ltxcmds.sty || echo "ltxcmds.sty not found!"
-          kpsewhich kvsetkeys.sty || echo "kvsetkeys.sty not found!"
-
-      - name: Show book_wmd_to_glitch.tex
-        run: cat book_wmd_to_glitch.tex
+      - name: Install Pandoc
+        uses: pandoc/actions/setup@v1
+        with:
+          version: '3.5'
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
+          export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
+          latexmk -r .latexmkrc -pdf -xelatex -interaction=nonstopmode book_wmd_to_glitch.tex
 
       - name: Generate HTML with Pandoc
         run: |
