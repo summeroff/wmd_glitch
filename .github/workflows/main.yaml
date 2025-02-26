@@ -18,15 +18,6 @@ jobs:
           packages: >-
             latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
 
-      - name: Download Open Sans from Google Fonts Repo
-        run: |
-          wget https://github.com/google/fonts/archive/main.zip -O google-fonts.zip
-          unzip google-fonts.zip -d google-fonts
-          mkdir -p ./fonts
-          cp google-fonts-main/ofl/opensans/*.ttf ./fonts/
-      - name: List Downloaded Fonts
-        run: ls -R ./fonts/
-
       - name: Verify XeLaTeX Installation
         run: |
           which xelatex || echo "XeLaTeX not found!"

@@ -11,15 +11,8 @@
 \usepackage{titlesec}
 \usepackage{fontspec}
 
-% Set main font to a web-friendly sans-serif
-\setmainfont{OpenSans}[
-  Path = ./fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  ItalicFont = *-Italic,
-  BoldItalicFont = *-BoldItalic
-]
+% Set main font to Liberation Sans (no Path needed)
+\setmainfont{Liberation Sans}
 
 % Custom command for notes (monospace, slightly smaller)
 \newcommand{\note}[1]{\texttt{\small \color{DarkGray} #1}}
@@ -27,7 +20,7 @@
 % Modernize section headings: sans-serif, bold, no numbers, colored
 \titleformat{\part}[block]{\Large\bfseries\color{NavyBlue}}{\thepart}{1em}{}
 \titleformat{\section}[block]{\large\bfseries\color{Teal}}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{12pt}{6pt} % Adjust spacing: 12pt before, 6pt after
+\titlespacing*{\section}{0pt}{12pt}{6pt}
 
 % Ragged-right text for a web-like feel
 \raggedright
