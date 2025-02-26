@@ -20,12 +20,11 @@ jobs:
       - name: Show book_wmd_to_glitch.tex
         run: cat book_wmd_to_glitch.tex
 
-      - name: Compile LaTeX
-        run: latexmk -pdf book_wmd_to_glitch.tex
-
       - name: Compile LaTeX to PDF
         run: |
-          latexmk -pdf book_wmd_to_glitch.tex
+          latexmk -pdf -interaction=nonstopmode -f book_wmd_to_glitch.tex
+        # -f forces latexmk to continue even if there are errors (useful for CI)
+        # -interaction=nonstopmode prevents latexmk from stopping on errors
 
       - name: Generate HTML with Pandoc
         run: |
