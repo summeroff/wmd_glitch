@@ -16,12 +16,15 @@ jobs:
         uses: teatimeguest/setup-texlive-action@v3
         with:
           packages: >-
-            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft
+            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft liberation geometry
 
-      - name: Verify XeLaTeX Installation
+      - name: Verify XeLaTeX and Packages Installation
         run: |
           which xelatex || echo "XeLaTeX not found!"
           xelatex --version
+          kpsewhich geometry.sty || echo "geometry.sty not found!"
+          kpsewhich xcolor.sty || echo "xcolor.sty not found!"
+          kpsewhich fontspec.sty || echo "fontspec.sty not found!"
 
       - name: Show book_wmd_to_glitch.tex
         run: cat book_wmd_to_glitch.tex

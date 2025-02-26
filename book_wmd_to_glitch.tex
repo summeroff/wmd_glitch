@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[x11names]{xcolor}
+\usepackage[xetex,x11names]{xcolor} % Specify xetex driver
 \usepackage{geometry}
 \geometry{a4paper, margin=1.5in}
 \usepackage{microtype}
@@ -11,18 +11,18 @@
 \usepackage{titlesec}
 \usepackage{fontspec}
 
-% Set main font to Liberation Sans (no Path needed)
+% Set main font to Liberation Sans
 \setmainfont{Liberation Sans}
 
-% Custom command for notes (monospace, slightly smaller)
+% Custom command for notes
 \newcommand{\note}[1]{\texttt{\small \color{DarkGray} #1}}
 
-% Modernize section headings: sans-serif, bold, no numbers, colored
+% Modernize section headings
 \titleformat{\part}[block]{\Large\bfseries\color{NavyBlue}}{\thepart}{1em}{}
 \titleformat{\section}[block]{\large\bfseries\color{Teal}}{\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 
-% Ragged-right text for a web-like feel
+% Ragged-right text
 \raggedright
 
 \title{WMD: To Glitch}
