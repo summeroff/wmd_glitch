@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup TeXLive
+        uses: ./.github/actions/setup-texlive
+        with:
+          requirements-file: '.github/texlive/requirements.txt'
+
       - name: Compile LaTeX to PDF
         run: |
           latexmk -pdf main.tex
