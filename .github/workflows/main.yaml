@@ -1,97 +1,100 @@
-name: Build and Release Ebooks
+name: Build and Release Book
 
 on:
   push:
     tags:
-      - 'v*' # Trigger on tags starting with 'v' (e.g., v1.0, v1.2.3)
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install LaTeX
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full pandoc
+      - name: Compile LaTeX to PDF
+        run: |
+          latexmk -pdf main.tex
+          mv main.pdf book.pdf
 
-    - name: Build PDFs
-      run: |
-        pdflatex book-part1.tex
-        pdflatex book-part1.tex  # Run twice for TOC and cross-refs
-        pdflatex book-part2.tex
-        pdflatex book-part2.tex  # Run twice for TOC and cross-refs
-        # Combine parts into a single PDF (optional, but often desirable)
-        # Requires ghostscript (pdftk is another option, but needs separate install)
-        sudo apt-get install -y ghostscript
-        gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=wmd_glitch.pdf book-part1.pdf book-part2.pdf
+      - name: Generate HTML with Pandoc
+        run: |
+          pandoc -s main.tex -o book.html
 
+      - name: Generate EPUB with Pandoc
+        run: |
+          pandoc -s main.tex -o book.epub
 
-    - name: Convert to EPUB
-      run: |
-        pandoc wmd_glitch.pdf -o wmd_glitch.epub -t epub3 --toc #toc for epub
+      - name: Generate FB2 with Pandoc
+        run: |
+          pandoc -s main.tex -o book.fb2
 
-    - name: Convert to MOBI
-      run: |
-        pandoc wmd_glitch.pdf -o wmd_glitch.mobi # Uses pandoc for simplicity
+      - name: Install Calibre
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y calibre
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v4 # Corrected to v4
-      with:
-        name: wmd_glitch_ebooks
-        path: |
-          wmd_glitch.pdf
-          wmd_glitch.epub
-          wmd_glitch.mobi
-          book-part1.pdf
-          book-part2.pdf
-        retention-days: 5  # Optional: Set how long to keep the artifacts
+      - name: Convert EPUB to MOBI
+        run: |
+          ebook-convert book.epub book.mobi
 
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
 
-    - name: Create Release (Optional - see notes below)
-      uses: actions/create-release@v1
-      if: startsWith(github.ref, 'refs/tags/')  # Only create release from tag
-      id: create_release # Add an ID for use in later steps
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically provided
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
+      - name: Upload PDF
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: book.pdf
+          asset_name: book.pdf
+          asset_content_type: application/pdf
 
-    - name: Upload Release Assets (Optional - see notes below)
-      uses: actions/upload-release-asset@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}  # From create-release
-        asset_path: wmd_glitch.pdf
-        asset_name: wmd_glitch.pdf
-        asset_content_type: application/pdf
+      - name: Upload HTML
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: book.html
+          asset_name: book.html
+          asset_content_type: text/html
 
-    - name: Upload EPUB Asset
-      uses: actions/upload-release-asset@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: wmd_glitch.epub
-        asset_name: wmd_glitch.epub
-        asset_content_type: application/epub+zip
+      - name: Upload EPUB
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: book.epub
+          asset_name: book.epub
+          asset_content_type: application/epub+zip
 
-    - name: Upload MOBI Asset
-      uses: actions/upload-release-asset@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: wmd_glitch.mobi
-        asset_name: wmd_glitch.mobi
-        asset_content_type: application/x-mobipocket-ebook
+      - name: Upload FB2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: book.fb2
+          asset_name: book.fb2
+          asset_content_type: application/x-fictionbook+xml
+
+      - name: Upload MOBI
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: book.mobi
+          asset_name: book.mobi
+          asset_content_type: application/x-mobipocket-ebook
