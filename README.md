@@ -4,6 +4,17 @@
 
 This repository contains the source files for a fictional story, "WMD: To Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. 
 
+### Content Warning
+
+The source files in this repository contain a speculative-fiction narrative with potentially triggering or distressing content. Expect:
+
+- Graphic violence and gore
+- Themes of mental illness, paranoia, and conspiracies
+- Strong or offensive language
+- Depictions of extremist or bigoted viewpoints
+
+These elements are fictional and do not reflect the author’s personal views. Please read at your own discretion.
+
 ## Story Summary (Lore) - Spoiler alert!
 
 See the full lore summary in `lore_summary.txt`.

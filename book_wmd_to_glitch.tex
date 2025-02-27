@@ -1,43 +1,83 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,openright]{book} % openright starts chapters on odd pages
 \usepackage[utf8]{inputenc}
 \usepackage[xetex,x11names]{xcolor}
 \usepackage{geometry}
-\geometry{a4paper, margin=1.5in}
+\geometry{
+  paperwidth=6in, 
+  paperheight=9in,
+  inner=0.75in,
+  outer=0.75in,
+  top=1in,
+  bottom=1in
+}
 \usepackage{microtype}
-\usepackage{parskip}
 \usepackage{setspace}
-\setstretch{1.3}
-\usepackage{tocloft}
+\setstretch{1.2}
 \usepackage{titlesec}
 \usepackage{fontspec}
+\usepackage{mdframed}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{bookmark} % helps hyperref with outlines
 
-% Set main font to Liberation Sans
-\setmainfont{Liberation Sans}
+% Choose a more book-like font
+\setmainfont{EB Garamond}
 
-% Custom command for notes
-\newcommand{\note}[1]{\texttt{#1}}
+% Remove parskip, use paragraph indentation:
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
 
-% Modernize section headings
-\titleformat{\part}[block]{\Large\bfseries}{\thepart}{1em}{}
-\titleformat{\section}[block]{\large\bfseries}{\thesection}{1em}{}
-\titlespacing*{\section}{0pt}{12pt}{6pt}
+% Fancyhdr setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\rightmark}
+\fancyhead[RE]{\leftmark}
 
-% Ragged-right text
-\raggedright
+% For chapters
+\titleformat{\chapter}[display]
+  {\huge\bfseries}
+  {\thechapter}
+  {1ex}{}
 
 \title{WMD: To Glitch}
-\author{}
+\author{Author Name}
 \date{}
 
 \begin{document}
 
+\frontmatter
 \maketitle
+
+\begin{mdframed}[linewidth=1pt,linecolor=red]
+\begin{center}
+    {\Large \bfseries Content Warning}
+\end{center}
+
+This book is a work of speculative fiction containing unsettling themes,
+strong language, violence (sometimes graphic), mental health struggles,
+and potentially offensive or bigoted viewpoints expressed by characters
+for the sake of realism. These do not represent the author’s personal beliefs.
+
+\textbf{Reader discretion is advised} if you feel uncomfortable with:
+\begin{itemize}
+    \item References to paranoia, conspiracy, and psychological distress
+    \item Explicit or graphic violence
+    \item Potentially offensive or bigoted language
+    \item Surreal or disorienting narrative techniques
+\end{itemize}
+
+All characters, events, and institutions are fictional. Any resemblance
+to real persons or entities is unintentional. The author disclaims all
+liability for any harm or distress caused by reading this material.
+\end{mdframed}
+
 \tableofcontents
-\newpage
+\mainmatter
 
 \part{The Overexposed Memory}
 
-\section{As Usual at This Time}
+\chapter{As Usual at This Time}
 
 I walk by the corner store as usual at this time of day. 8:47 a.m., to be exact, I checked my watch twice because the second hand seemed to stutter. \textit{Or maybe it’s my eyes playing tricks again.} And there’s this Jew. \textit{Why he look at me like that?} His eyes, narrow and sharp, like they’re peeling me open layer by layer, looking for something I didn’t even know I hid. I scribble this down in my notebook: black leather, 5x7, the one I keep in my left coat pocket because the right one’s got a hole from when I snagged it on the fence last Tuesday. The Jew’s standing there, behind the counter, polishing a glass with a rag that’s probably dirtier than the glass itself. He’s got a name tag \textnormal{"Eli"}, but I bet that’s not his real name. \textit{They never use real names, do they? Too risky, too telling.}
 
@@ -63,7 +103,7 @@ Up the stairs, elevator’s a trap, always has been, I count the steps: 28 to th
 
 I sit at the table, wood, scratched, wobbly leg, and flip open the notebook to a fresh page. Pen’s dead, so I grab the pencil from the drawer, green, sharpened yesterday. I start transcribing the day, every detail, every thought, because if I don’t, they’ll slip away, and then I’ll miss something. \textit{Something big.} The Jew at the store, the woman with the dog, the late bus, the gang, the poster, the scratched mailbox, it’s all connected. I just haven’t cracked it yet. But I will. I’ll write it all down, and I’ll figure it out. They can watch me all they want, but I’m watching them too. \textit{And I’ve got the proof right here, in black ink and pencil lead, page after page after page.}
 
-\section{Quieter Than Yesterday}
+\chapter{Quieter Than Yesterday}
 
 February 21, 2025. 7:32 a.m. I wake up to the sound of dripping, slow, deliberate, like a metronome set to torment me. It’s coming from the bathroom sink, even though I tightened the faucet last night, three full turns with the wrench I keep under the sink. I checked it twice before bed, noted it at 11:47 p.m.: \note{Faucet secured, no drip, wrench back in place.} Now it’s leaking again. \textit{Someone’s been here.} I grab the notebook, black leather, 5x7, pencil still sharp from yesterday, and write: \note{Drip started overnight, faucet tampered, 7:32 a.m.} I don’t fix it yet. I listen instead. Drip. Drip. Drip. Three seconds apart. \textit{A signal?} I count ten drops, then stop, because eleven’s too complete, too final.
 
@@ -83,7 +123,7 @@ Before sitting down, I glance out the kitchen window. A figure stands across the
 
 I sit at the table, wood, scratched, wobbly leg, and spread the notebook open. The feather goes next to it, flat on the page, a dark slash against the white. I sketch it quick, curved spine, frayed edges, then start transcribing: the drip, the feather, the gravel, the canal object, the barge man, the lock, the click, the wall marking, the figure. It’s not random. It’s a sequence, a message, a map. The dripping was a wake-up, the feather a pointer, the lock a key, literal or not, I’ll find out. They’re closing in, tightening the net, but I’m ahead. I’ve got the pieces, right here, in pencil and paper. I’ll decode it before they do. I have to.
 
-\section{Then a Third}
+\chapter{Then a Third}
 
 March 23, 2025. 4:17 p.m. It’s been weeks since I left the apartment, 27 days, noted on page 89: \note{Last outing, February 24, minimal contact, safe return.} Too much has piled up: the feather’s still on my table, shedding tiny barbs; the lock’s hum echoes in my head; the drip started again three nights ago, irregular now, like Morse code I can’t crack. \textit{They’re back.}
 
@@ -105,7 +145,7 @@ One block left. The crowd thins, but the air’s heavier, smoke, maybe something
 
 The pencil snaps, lead breaks clean off, rolling under my boot. I fumble for another stub, hands trembling, but a loud crack splits the air. Not a balloon, not a horn, louder, deeper, like the earth splitting. I drop the notebook, clap my hands over my ears, and everything slows: the crowd freezes, faces turn, the rabbit man tilts his head. My vision blurs, white, then black, and I’m falling, knees hitting pavement, notebook splayed open beside me, pages flapping like wings. Then nothing.
 
-\section{Like Mine but Torn}
+\chapter{Like Mine but Torn}
 
 March 23, 2025. Time unknown. I wake up, head throbbing like a drum, lights too bright, white, buzzing, stabbing my eyes. I’m on a bed, stiff sheets, metal rails. Hospital. \textit{How?} Last thing, notebook falling, crack splitting the air, pavement. I sit up fast, hands patting my coat, left pocket empty. Notebook’s gone. My chest tightens, breath short. \textit{They took it.} The Jew from the corner store, the rabbit man, the drone, someone. I scan the room: pale walls, a tray with a cup, a window too high to reach. No clock, but the light’s dim outside, dusk maybe. \textit{I need to write. I need it back.}
 
@@ -121,7 +161,7 @@ A supply closet’s ahead, door ajar, dark inside. I slip in, find a shovel, woo
 
 Stairs to Floor 1, almost there. A man blocks the landing, big, orderly maybe, swaying, eyes milky. He moans, soft, then loud. I grip the shovel, write: \note{Man, milky eyes, moan, Floor 2 landing.} He lunges, slow, clumsy, but I swing anyway, instinct kicking in. The blade cracks his skull, wet crunch, and he drops, twitching once. I stare, blood black, thick, not right, like the gore filter in a game. Then it hits: not human, not anymore. \textit{Zombies. All of them.} I write, hands shaking: \note{Orderly, zombie, killed, Floor 2, shovel hit.} No time left, exit’s close, but they’ve seen me now.
 
-\section{Buzzer Still Broken}
+\chapter{Buzzer Still Broken}
 
 March 23, 2025. Time still unknown, dusk fading. I’m out, hospital doors behind me, glass shattered, no alarm. Shovel in hand, blade sticky with black blood from the orderly. Floor 1 was a blur, two more came at me, a patient with one arm dangling, a guard with half his face gone. I swung twice: first hit cracked the patient’s jaw, second split the guard’s neck. They dropped, gurgling, not human anymore. I wrote it fast on the gauze, wrist cramped: \note{Patient, one arm, killed, Floor 1 / Guard, half face, killed, Floor 1, shovel hits.} No time to think, exit was there, and I took it.
 
@@ -137,7 +177,7 @@ Last two blocks, I stick to shadows. Holiday ribbons hang limp, shredded, some s
 
 I stumble to the door, buzzer still broken, good sign, and fumble the key. Inside, up the stairs, 28 steps, counting keeps me sane, I lock myself in: deadbolt, chain. Apartment’s untouched, table scratched, feather still there, drip silent now. I collapse, shovel clattering, and unwrap the gauze: \note{Home, 5 kills total, city overrun, time unknown.} Red ink’s smeared into my skin, lines of words bleeding under the surface, like the notes are part of me now. I pull out the pencil, I sharpen it with a knife, slow, deliberate. They’re out there, shuffling, but I’m here. For now.
 
-\section{Symbols Staring Back}
+\chapter{Symbols Staring Back}
 
 March 24, 2025. Time unknown. I wake, curtains drawn, feather on the table, shovel by the door, then a crash. Door splinters, wood flies, and the back of a police shotgun swings at my face. Black steel, barrel scratched, too fast to dodge. It hits, cheekbone cracks, I’m down, sprawled on the floor, blood hot in my mouth. No gauze, no pencil, hands empty, coat torn off me in the fall. Can’t write. I scream instead, notes to the universe: \note{SHOTGUN—POLICE—BROKE IN—FACE HIT—} Voice raw, echoing off walls. They’re here, finally, masks off.
 
@@ -160,7 +200,7 @@ I catch it. \textit{He’s not saving me, he’s mining me.} My gut twists, para
 
 We’re locked in it, voices crashing. He bellows: \textit{Slava rozbiy, glory breaks! Chort tebe, devil take you!}, spit lands on my arm, hands flail like he’s clawing out answers. I scream back: \note{GLORY—DEVIL—TAKE—} He presses on, wild: \textit{Molitva pade, prayer falls! Pokay, repent now!}, his eyes burn, robe frays, words tangle into a snarl. I scream: \note{PRAYER—REPENT—NO—} It’s a storm, no sense, just noise piling up, his fingers twist, spit stains my cot, beard shakes like static. My head pounds, symbols pulse on the bandages, or I imagine they do, no telling anymore. No escape, no record, just this, shouting into a void that shouts back, louder, madder, endless.
 
-\section{Stole My Ramen}
+\chapter{Stole My Ramen}
 
 April 2, 2025. 6a.m., I think. Time’s slippery here, cell’s got no clock, just a slit window too high to see sun or stars. Woke on the cot again, concrete biting through the thin mattress, bandages still on, symbols faded but there. Been days since the pastor, his Slavic yells echoing in my skull. Counted three so far, three meals of gray mush, watery and cold, three nights of no sleep no reality either, just staring at the ceiling, tracing cracks like code. Hands stopped shaking yesterday, but the need to write clawed at me.  Screaming isn’t enough. I yell notes to the universe: \note{WORDS NEED PAPER—ORDER—PROOF} Voice hoarse, bouncing off walls, useless without ink. I trace the cracks again, seventeen jagged lines, and scream: \note{CRACKS—CODE—WATCHING} No one answers, just silence and the pastor’s gibberish looping in my head.
 
@@ -185,7 +225,7 @@ Pages flip, half the notebook’s gone now, ink smudging from sweat. Faces pile 
 
 I stop, breathless, notebook trembling. Every face, past, present, locked here, watching me. \textit{A puzzle, a trap, a mirror.} Why? Who? Doors clang shut behind, no guard now, just silence and eyes. I write: \note{Faces from life, all cells, connected?, 11:47 a.m.} No answers, just the weight of it all, pressing in.
 
-\section{Your Decadence Birthed}
+\chapter{Your Decadence Birthed}
 
 April 2, 2025. Time unknown, irrelevant now. I wake strapped, arms, legs, chest, leather biting skin, the cold slab searing my spine. Wires hum beneath me, pulsing with menace. No notebook, no gauze, hands pinned, can’t write, can’t grip. Panic claws my gut. I scream, throat raw: \note{STRAPS—WIRES—TRAPPED—} Head jerks, eyes dart, room’s dim, circular, walls curving in, a theater of judgment. Faces in the stands, not shadows, not zombies, famous, impossible faces, staring down, judging me, condemning, one guy, white, straight, alone.
 
@@ -207,7 +247,7 @@ They keep coming. Harry Reid: \textit{Your stillness choked my voice.} Alexandri
 
 Silence crashes down, heavy, suffocating. A figure moves, hooded, white, KKK robe, slow steps from the shadows, a mechanical whir beneath. It stops at a switch. Wires spit sparks. I rasp, \textit{Who are you?} No one speaks, just stares. I scream: \note{KKK—SWITCH—HERE—} The figure turns. Eyes blaze from the hood. He grips the lever, hesitates. A low rumble builds in the walls, the air thickens with static. My chest tightens, breath shallow, as shadows shift in the stands. Are they moving closer? The hum crescendos, a promise of something vast and unescapable. Figure’s hand hovers, gloved, a metallic glint peeking from the sleeve, steady or trembling, I can’t tell. The lever still unpulled. Voices gone, just the hum, my breath, their eyes, rigged, waiting. Sparks flare brighter, a storm brews unseen, and I’m left hanging on the edge, unmoored, waiting for the fall.
 
-\section{Crisp, Local IPAs}
+\chapter{Crisp, Local IPAs}
 
 April 2, 2025. End is near. Sparks crackle, electricity bites, slow, not instant like they say. Chair hums, wires spit blue, burning my wrists, leather straps sizzling. Process drags. \textit{Why?} Long enough to think, to scream final notes into the void: \note{SPARKS—SLOW—CHAIR—BURNS—} Obama’s eyes widen, Greta flinches, MLK grips the rail, Xi’s stone-still. The KKK figure pulls the switch harder, current surges, my teeth rattle, I scream: \note{SURGE—TEETH—FINAL—} Vision blurs, white, black, screen cuts in.
 
@@ -231,7 +271,7 @@ Ethan’s voice fades, \textit{Lila, wait!}, While she’s staring at her palm f
 
 \part{The Echoes to Reality}
 
-\section{Awakening and Escape}
+\chapter{Awakening and Escape}
 
 I woke up to the smell of rotting takeout and something sticky in my hair. \textit{Gross.} My head pounded like I’d been hit by a truck, and the sunlight stabbing through the dumpster lid wasn’t helping. \textit{Wait, dumpster?} Oh, right. Last night. The bar, the beer, the… hand thing. I shuddered, pushing the memory down. \textit{Not now.}
 
@@ -253,7 +293,7 @@ But then I saw him, a bartender across the street, leaning against a doorframe, 
 
 I reached Ethan’s bungalow, out of breath. He opened the door before I knocked, smiling wide. \textit{Too wide, maybe.} His watch caught the light, glinting oddly, too fancy for a surfer. \textit{Thanks for letting me crash}, I said, forcing a smile. \textit{Anytime, babe}, he replied, leading me to the basement. \textit{You’ll be safe here}. Safe? I hoped so, but something felt off. I brushed it aside, too exhausted to care. I needed sleep, a shower, and answers. \textit{Tomorrow.}
 
-\section{Vacay Vibes}
+\chapter{Vacay Vibes}
 
 I settled into Ethan’s basement, and okay, it was kind of adorable. Fairy lights crisscrossed the ceiling, casting a soft, golden glow over the futon where I’d be crashing. There was a mini-fridge humming in the corner, a stack of old magazines, and a fluffy blanket that screamed cozy vibes. But then I clocked the weird stuff: cameras mounted high in the corners, a server rack blinking with tiny green lights, and a router that looked way too fancy for a surfer’s basement. \textit{Like, what even?} It felt more like a tech nerd’s lair than Ethan’s chill hangout spot. I snapped a quick pic for Insta, futon, fairy lights, the works, and captioned it \textit{“hideout goals”}, but the tech gear? It made my stomach twist. \textit{What was Ethan hiding?}
 
@@ -275,7 +315,7 @@ Twist, crash down stairs, basement smells, damp, wires, pizza crust. Door bangs 
 
 Kitchen’s a blur, pizza grease, spilled lime, sink’s wet. Counter’s slick, climb it, slip, crash into cups, they shatter, loud. Window’s open, tight fit. Squeeze out, shirt rips, hit grass, cold, rough. City’s alive, lights smear, horns blare far off. Feet slap ground, running, breath’s short, lungs sting. Ethan yells, faint, \textit{Lila, stop!}, cool, too cool, trap voice. Screw him. Sprint harder, city swallows me, shadows twist, lights blind. Gone. For now.
 
-\section{Her Eyes Shift}
+\chapter{Her Eyes Shift}
 
 City’s a kaleidoscope, lights smear into wet pavement, reds, blues, yellows pooling like blood. Bare feet slap concrete, sandals ditched at Ethan’s, lost in the scramble. Alcohol’s heavy, sloshing in my brain, blurring edges. Legs shake, but thoughts race, cameras in the hospital, Ethan’s watch glinting, Mia’s texts buzzing cryptic. \textit{It’s a web.} VR trial, attack, Mia’s place, gotta get there. But my head’s a sieve, leaking details. \textit{Need a notebook. Need to write it down.} Can’t trust my mind, not now.
 
@@ -295,7 +335,7 @@ Mia’s building rises, glass, gleaming, fifth floor. Almost there. Alley shortc
 
 Steps to Mia’s door, concrete bites my soles. Rail’s icy, pull myself up. Breath’s a wheeze, head’s a drumbeat. Knock, sharp, three times. Silence. Mia’s here. \textit{Maybe answers. Maybe not.} Notebook’s heavy in my hand, \textit{proof I’m not losing it. Yet.}
 
-\section{Tangled in This}
+\chapter{Tangled in This}
 
 I stumbled into Mia’s loft, my chest heaving from the sprint across the city, bare feet stinging against the hardwood. The buzz from Ethan’s margarita was gone, leaving me sober but jittery, my tote banging against my hip. Mia’s place was my haven, exposed brick, fairy lights, that vintage vibe she loved, but now it felt wrong, like the air itself was holding its breath.
 
@@ -317,7 +357,7 @@ I bolted out of the loft, sneakers pounding the pavement, the LA night swallowin
 
 First stop: the Chinatown bar from the note. It crouched behind red lanterns, their glow painting the street crimson. A bouncer loomed out front, arms crossed, a dragon tattoo curling up his neck, \textit{mafia vibes screaming loud.} I scribbled in my notepad: \note{Bar, front for something? Basement door, voices. Mia here?} The WMD mode scanned everything: his rigid stance, the way people slipped inside, heads low, the faint hum from below. My paranoia spiked, \textit{every shadow could be a trap}, but I clenched my jaw. Mia was counting on me, and I wasn’t stopping now.
 
-\section{Hot Across My Face}
+\chapter{Hot Across My Face}
 
 Red Lantern Lounge squats in Chinatown, neon pulsing, red glow slashing shadows across wet pavement. Sneakers pound concrete, tequila cuts every edge sharp. Bouncer hulks at the door, dragon tattoo coils up his neck, scales flash like a blade. \textit{Mafia mark.} I shove in, eyes sweep fast: smoke hangs thick, glasses clink low, voices mutter tight.
 
@@ -361,7 +401,7 @@ Stand, trembling, brick clunks down. Gore coats me, blood, brain, bits of him. H
 
 Map in my tote shifts, crinkles. Hotel pin. Next move. Head clears. Step on. Thoughts lock there. Nod, steady, limp out, ruin stays behind.
 
-\section{Cry From My Throat}
+\chapter{Cry From My Throat}
 
 The alley’s blood-stink clung to me, the thug’s smashed skull a ghost in my head. I slumped against a dumpster a block from the hotel, my tote heavy with the map and his cash. Tequila buzzed, fading slow, making my hands twitch, my thoughts jagged. I’d waited it out, \textit{as long as it takes}, until the edge dulled, the world around stopped being so suspicious, the blue glow under my skin dimming to nothing. My breath steadied, the pounding in my skull eased. No more screams, no more brick swings. I was me again, \textnormal{Lila}, the LA girl with the golden curls and killer smile. The hotel pin, Room 12 off the 405, burned in my mind. Mia was there, tied up, scared. I’d seen her. Killing that thug got me nothing but gore. Time to be smart.
 
@@ -393,7 +433,7 @@ Panting, he pulled out, smirking feral, cum dripping down my thighs. My mind fli
 
 \textit{"MIA—NEAR—FIND—NOW—"} roared in my skull, pen scratching the notepad: \note{Rooms check Mia close.} Blue glow flickered under my skin. \textit{Not real.} Time to hunt.
 
-\section{Tracing Lazy Circles}
+\chapter{Tracing Lazy Circles}
 
 The whiskey stink hit my throat, a hot burn waking the beast inside. The closet door banged open behind me, party noise fading to a dull hum. I stumbled into the hallway, boots scuffing the carpet, eyes darting. Room 12 loomed ahead, door cracked, light bleeding out. I shoved in. Empty. Mia’s chair tipped over, ropes limp like dead snakes. A girl cowered in the corner, all shaky limbs and big eyes. "Where’s Mia?" I barked, voice rough, too loud.
 
@@ -461,7 +501,7 @@ We bolt, stairwell dark, steps slick with spilled beer, blood trailing behind. F
 
 Outside, parking lot, shadows stretch long, cars gleam under streetlights. No guards yet, quiet, too quiet. \textit{"TRAP?—RUN—NOW—"} Mind races, paranoia spikes, but Mia grabs my hand, pulls me forward. We sprint, past the hotel, into the alley, gravel bites my soles. Her dress flaps torn, my tank top sticks wet with blood, sweat. Lungs burn, keep moving. City lights blur, neon, headlights, horns faint. Turn corner, hide behind dumpster, panting hard. Mia’s grip tightens, her eyes wild but steady. "We’re out," she whispers, voice raw. I nod, chest heaving, alive, free, together. For now.
 
-\section{Rolling Through Debris}
+\chapter{Rolling Through Debris}
 
 The air in Mia’s loft hung heavy, thick with dust and the faint tang of spilled wine from last week’s chaos. I stumbled in, my boots crunching over broken glass, and slung my tote onto the couch. Mia was already at her closet, pulling out essentials: a stack of clothes, a wad of cash, her qipao, that stunning red silk piece embroidered with gold dragons, a tether to her Shanghai roots. She folded it with trembling hands, like it might vanish if she let go. I rummaged through the wreckage for my charm bracelet, spotting its tiny golden sun pendant peeking out from under a pile of crumpled sketches. My fingers closed around it, a small anchor in the storm. The loft was a disaster, overturned chairs, gutted drawers, that flickering neon "Good Vibes" sign on the wall glowing like a cruel joke now.
 
