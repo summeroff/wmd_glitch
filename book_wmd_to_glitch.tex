@@ -1,55 +1,79 @@
-\documentclass[12pt,openright]{book} % openright starts chapters on odd pages
+\documentclass[12pt,oneside]{book} % 'oneside' removes separate recto/verso formatting
+
+% UTF-8 and color
 \usepackage[utf8]{inputenc}
-\usepackage[xetex,x11names]{xcolor}
+\usepackage{xcolor}
+
+% Define "cyberpunk" neon-ish colors (adjust to taste)
+\definecolor{neonpink}{HTML}{FF00FF}
+\definecolor{neonteal}{HTML}{00FFFF} 
+
+% Page geometry
 \usepackage{geometry}
 \geometry{
-  paperwidth=6in, 
+  paperwidth=6in,
   paperheight=9in,
-  inner=0.75in,
-  outer=0.75in,
-  top=1in,
-  bottom=1in
+  margin=1in,         % simpler margins, more "web-like"
 }
+
+% Microtypography
 \usepackage{microtype}
+
+% Web-like paragraph spacing: remove indentation, add small vertical skip
+\usepackage{parskip}
+\setlength{\parskip}{0.7em}
+\setlength{\parindent}{0pt}
+
+% Slight line spacing
 \usepackage{setspace}
-\setstretch{1.2}
+\setstretch{1.15}
+
+% For custom headings
 \usepackage{titlesec}
+
+% Use a modern or futuristic sans font for the body text
+% (Install locally or pick something included, e.g. 'Roboto', 'Fira Sans', 'ShareTechMono', etc.)
 \usepackage{fontspec}
+\setmainfont{Roboto} % Or any installed TTF/OTF font you like
+
+% If you want a monospaced typewriter vibe, try this:
+%\setmainfont{Share Tech Mono}
+
+% For fancy frames if you want them
 \usepackage{mdframed}
+
+% Hyperlinks without ugly boxes
 \usepackage[hidelinks]{hyperref}
+
+% Minimalist page headers/footers
 \usepackage{fancyhdr}
-\usepackage{bookmark} % helps hyperref with outlines
-
-% Choose a more book-like font
-\setmainfont{EB Garamond}
-
-% Remove parskip, use paragraph indentation:
-\setlength{\parindent}{1.5em}
-\setlength{\parskip}{0pt}
-
-% Fancyhdr setup
 \pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[LO]{\rightmark}
-\fancyhead[RE]{\leftmark}
+\fancyhf{} 
+\fancyhead[C]{\textsf{\thepage}}  % page number in the center, in sans
+\renewcommand{\headrulewidth}{0pt}
 
-% For chapters
-\titleformat{\chapter}[display]
-  {\huge\bfseries}
-  {\thechapter}
-  {1ex}{}
+% Make chapter titles big & neon, remove "Chapter X" if desired
+\titleformat{\chapter}[display]%
+  {\huge\bfseries\color{neonpink}\sffamily} % Font setup, color
+  {}                                        % We can omit "Chapter \thechapter"
+  {0pt}{\Huge}                              % Additional formatting
 
-\title{WMD: To Glitch}
-\author{Author Name}
-\date{}
+% Similarly for sections
+\titleformat{\section}[block]%
+  {\Large\bfseries\color{neonteal}\sffamily}
+  {\thesection}{1em}{}
+
+% Book metadata
+\title{\color{neonteal}WMD: To Glitch}
+\author{\color{neonpink}Vladimir Sumarov}
+\date{\today}
 
 \begin{document}
 
-\frontmatter
+% Title page
 \maketitle
 
-\begin{mdframed}[linewidth=1pt,linecolor=red]
+\begin{mdframed}[linewidth=2pt,linecolor=neonteal]
 \begin{center}
     {\Large \bfseries Content Warning}
 \end{center}
@@ -73,7 +97,6 @@ liability for any harm or distress caused by reading this material.
 \end{mdframed}
 
 \tableofcontents
-\mainmatter
 
 \part{The Overexposed Memory}
 
