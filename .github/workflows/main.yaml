@@ -31,8 +31,8 @@ jobs:
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
           export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
-          latexmk -r .latexmkrc -pdf -xelatex -interaction=nonstopmode book_wmd_to_glitch.tex
-
+          latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
+        
       - name: Generate HTML with Pandoc
         run: |
           pandoc -s book_wmd_to_glitch.tex -o book_wmd_to_glitch-${{ github.ref_name }}.html
