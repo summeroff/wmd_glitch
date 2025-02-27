@@ -27,12 +27,10 @@ As Lila navigates this fragmented reality, she uncovers a web of interconnected 
 
 ## Project Status
 
-This project is a **work in progress**.  Currently, the story is divided into two parts:
+This project is a **work in progress**.  Currently, the story completed in two parts and third is planned. The LaTeX source files for the first two parts are available.
 
-*   `book-part1.tex`: The first part of the story, introducing Lila and the initial events.
-*   `book-part2.tex`: The second part, continuing Lila's descent into the conspiracy and her struggle with the WMD persona.
+*   `book_wmd_to_glitch.tex`
 
-Part 3 is planned.
 
 ## Repository Structure
 
@@ -56,12 +54,14 @@ While this is primarily a solo project, feedback and suggestions are welcome! Fe
 
 ## Author
 
-SummerOfF
+Vladimir Sumarov - SummerOfF
 
 ## Getting Started (for building the LaTeX files)
 
 To compile the LaTeX files into a PDF, you will need a LaTeX distribution installed on your system (such as TeX Live, MiKTeX, or MacTeX).  Once you have a LaTeX distribution installed, you can typically compile the files using a command like:
 
 ```bash
-pdflatex book-part1.tex
-pdflatex book-part2.tex
+pdflatex book_wmd_to_glitch.tex
+```
+
+Check github action scripts for more details.
