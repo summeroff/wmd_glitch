@@ -1,4 +1,5 @@
 # .latexmkrc
+$pdf_mode = 4;                 # 4 => xelatex
 $xelatex = 'xelatex -interaction=nonstopmode %O %S';
-$pdf_mode = 4; # Use xelatex to generate PDF (4 = xelatex mode)
-$max_repeat = 10; # Allow up to 10 runs
+$max_repeat = 10;              # up to 10 runs if references keep changing
+$options{'-f'} = 1;            # continue even if errors like missing .toc
