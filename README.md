@@ -1,67 +1,61 @@
 # WMD: To Glitch
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository contains the source files for the completed fictional story, "WMD: To Glitch," a speculative-fiction narrative exploring themes of paranoia, identity, conspiracy, and the blurred lines between reality and simulation.
 
-This repository contains the source files for a fictional story, "WMD: To Glitch," currently in development. The story explores themes of paranoia, identity, conspiracy, and the blurring lines between reality and simulation. 
-
-### Content Warning
-
-The source files in this repository contain a speculative-fiction narrative with potentially triggering or distressing content. Expect:
-
+## Content Warning
+The story contains potentially triggering or distressing content, including:
 - Graphic violence and gore
 - Themes of mental illness, paranoia, and conspiracies
 - Strong or offensive language
 - Depictions of extremist or bigoted viewpoints
+- Surreal and disorienting narrative techniques
 
-These elements are fictional and do not reflect the author’s personal views. Please read at your own discretion.
+These elements are fictional and do not reflect the author’s personal views. **Reader discretion is advised**.
 
-## Story Summary (Lore) - Spoiler alert!
+## Story Summary (Lore) - Spoiler Alert!
+For a detailed lore summary, see [lore_summary.txt](lore_summary.txt).
 
-See the full lore summary in `lore_summary.txt`.
+### Brief Overview:
+Lila, a trendy LA influencer, participates in a cutting-edge VR trial, "Life as Another," immersing herself in the life of a paranoid, conspiracy-obsessed white male. Post-trial, she discovers that alcohol triggers a violent alter ego—her "White Male Drunk" (WMD) persona—hyper-aware and convinced of a vast conspiracy. As Lila navigates her fractured reality, she uncovers a web of human trafficking, gang wars, and a mysterious hospital overrun with strange patients. Her best friend Mia, tied to the Chinese mafia, is drawn into the chaos, forcing Lila to confront her shifting identity and the dangerous forces at play.
 
-**Brief Overview:**
-
-Lila, a seemingly carefree LA "influencer" type, participates in a cutting-edge virtual reality trial called "Life as Another."  She chooses to experience life as a stereotypical, paranoid, conspiracy-theorist white male.  After the trial, she discovers that consuming alcohol triggers a disturbing personality shift, bringing the VR persona to the forefront.  This "White Male Drunk" (WMD) persona is hyper-aware, violent, and convinced of a vast conspiracy targeting him.  
-
-As Lila navigates this fragmented reality, she uncovers a web of interconnected events: a sunken cargo ship linked to human trafficking, a gang war in Chinatown, and a mysterious hospital overrun with patients exhibiting strange symptoms.  Her best friend, Mia, becomes entangled in the conspiracy, forcing Lila to confront her own shifting identity and the dangerous forces at play. The story blends elements of psychological thriller, action, and science fiction, questioning the nature of reality, identity, and the potential consequences of immersive technology. Also there is possible cloning/doppelgangers that show up.
+The story escalates as Lila investigates the VR trial’s origins, battles shadowy operatives, and uncovers the truth about the trial’s creator—a developer whose mind was uploaded into the simulation, now fragmented within her as WMD. Blending psychological thriller, action, and sci-fi, the narrative probes the nature of reality, identity, and the existential risks of immersive technology. Cosmic visions, robotic ambiguities, and a high-stakes escape leave readers questioning what’s real.
 
 ## Project Status
+The story is now **complete** with all three parts:
+- **Part 1: The Overexposed Memory**
+- **Part 2: The Echoes to Reality**
+- **Part 3: Ping the Source**
 
-This project is a **work in progress**.  Currently, the story completed in two parts and third is planned. The LaTeX source files for the first two parts are available.
 
-*   `book_wmd_to_glitch.tex`
-
+The full narrative is available in the repository, compiled into a single LaTeX file for easy reading and building.
 
 ## Repository Structure
-
-*  LaTeX sources
-*  A text file containing a more detailed summary of the story's lore and background information.
-*  Release scripts
+- **LaTeX Sources**:
+  - `book_wmd_to_glitch.tex`: The complete story, combining all three parts.
+- **Lore Summary**:
+  - `lore_summary.txt`: A detailed overview of the story’s characters, events, and themes.
+- **Release Scripts**:
+  - Scripts to automate the generation of reader formats (PDF, EPUB, etc.) are in development.
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file (which you should create and include) for details. This means you are free to use, modify, and distribute the code and story, even commercially, as long as you include the original copyright notice and disclaimer.
+This project is licensed under the MIT License—see the [LICENSE](LICENSE) file for details. You are free to use, modify, and distribute the code and story, even commercially, provided you include the original copyright notice and disclaimer.
 
 ## Future Plans
-
-* **Completion of Part 3:**  The story will be continued and completed in a third part.
-* **GitHub Actions for Releases:**  Automated builds will be implemented using GitHub Actions to generate book reader formats (e.g., PDF, EPUB, MOBI) for easier reading.
-* **Refinement and Editing** Edits based on previous suggestions will be added.
+- **Refinement and Editing**: Ongoing edits to polish the narrative and LaTeX formatting.
+- **Automated Builds**: GitHub Actions will be implemented to generate reader formats (PDF, EPUB, MOBI) for easier distribution.
+- **Supplementary Materials**: Potential additions include character profiles, lore expansions, or an illustrated version.
 
 ## Contributing
-
-While this is primarily a solo project, feedback and suggestions are welcome! Feel free to open an issue to report any errors, inconsistencies, or to offer ideas for improvement.  Pull requests are generally not accepted at this stage, but may be considered in the future.
+While this is primarily a solo project, feedback and suggestions are welcome! Feel free to open an issue to report errors, inconsistencies, or ideas for improvement. Pull requests may be considered for future enhancements.
 
 ## Author
-
-Vladimir Sumarov - SummerOfF
+SummerOfF
 
 ## Getting Started (for building the LaTeX files)
-
-To compile the LaTeX files into a PDF, you will need a LaTeX distribution installed on your system (such as TeX Live, MiKTeX, or MacTeX).  Once you have a LaTeX distribution installed, you can typically compile the files using a command like:
+To compile the LaTeX files into a PDF, ensure you have a LaTeX distribution installed (e.g., TeX Live, MiKTeX, MacTeX). Compile the full book using:
 
 ```bash
 pdflatex book_wmd_to_glitch.tex
 ```
 
-Check github action scripts for more details.
+To see working example, check the github actions script.
