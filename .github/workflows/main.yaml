@@ -54,24 +54,6 @@ jobs:
         run: |
           ebook-convert book_wmd_to_glitch-${{ github.ref_name }}.epub book_wmd_to_glitch-${{ github.ref_name }}.mobi
 
-      - name: Rename HTML to index.html for GitHub Pages
-        run: |
-          mv book_wmd_to_glitch-${{ github.ref_name }}.html index.html
-
-      - name: Deploy HTML to GitHub Pages
-        continue-on-error: true  # Makes this step optional; workflow continues even if it fails
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: gh-pages
-          keep_files: false
-          force_orphan: true
-          destination_dir: .
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy index.html to GitHub Pages for ${{ github.ref_name }}'
-
       - name: Create and Upload Release
         uses: softprops/action-gh-release@v2
         env:
