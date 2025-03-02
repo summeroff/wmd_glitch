@@ -1,0 +1,8 @@
+old_files
+images
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
