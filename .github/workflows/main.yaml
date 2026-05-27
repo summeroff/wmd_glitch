@@ -7,30 +7,97 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v3
+      - name: Debug - Runner Environment
+        run: |
+          echo "=== Runner Debug Information ==="
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Arch: $RUNNER_ARCH"
+          echo "Runner Name: $RUNNER_NAME"
+          echo ""
+          echo "=== Current PATH ==="
+          echo "$PATH" | tr ':' '\n'
+          echo ""
+          echo "=== Environment Variables (selected) ==="
+          env | grep -E '(HOME|GITHUB|RUNNER|PATH|USER)' | sort
+          echo ""
+          echo "=== Checking for common TeX Live locations ==="
+          ls -la /usr/local/texlive 2>/dev/null || echo "No /usr/local/texlive"
+          ls -la ~/texlive 2>/dev/null || echo "No ~/texlive"
+          which tex 2>/dev/null || echo "No 'tex' in PATH"
+          which xelatex 2>/dev/null || echo "No 'xelatex' in PATH"
+          which latexmk 2>/dev/null || echo "No 'latexmk' in PATH"
+          echo ""
+          echo "=== Disk space ==="
+          df -h
+          echo ""
+          echo "=== apt sources (for debugging) ==="
+          cat /etc/apt/sources.list | head -20
+
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        id: texlive-cache
         with:
-          packages: >-
-            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed zref needspace hyperref fancyhdr
+          path: ~/texlive
+          key: texlive-${{ runner.os }}-${{ hashFiles('.github/workflows/main.yaml') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
+
+      - name: Install TeX Live (official installer, user-local)
+        run: |
+          TEXLIVE_INSTALL_DIR="$HOME/texlive"
+
+          if [ "${{ steps.texlive-cache.outputs.cache-hit }}" != "true" ]; then
+            echo "=== Installing TeX Live (cache miss) ==="
+            wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz
+            cd install-tl-*
+
+            ./install-tl --no-interaction \
+              --scheme=small \
+              --texdir="$TEXLIVE_INSTALL_DIR" \
+              --no-doc-install \
+              --no-src-install
+          else
+            echo "=== TeX Live cache hit - skipping full install ==="
+          fi
+
+          # Always ensure PATH is set and required packages are present
+          echo "$TEXLIVE_INSTALL_DIR/bin/x86_64-linux" >> $GITHUB_PATH
+          export PATH="$TEXLIVE_INSTALL_DIR/bin/x86_64-linux:$PATH"
+
+          echo "Ensuring required packages are installed..."
+          tlmgr install \
+            latexmk xetex fontspec titlesec setspace microtype parskip \
+            xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed \
+            zref needspace hyperref fancyhdr || true
+
+          echo "=== TeX verification ==="
+          which xelatex || echo "xelatex not found"
+          which latexmk || echo "latexmk not found"
 
       - name: Install Pandoc
-        uses: pandoc/actions/setup@v1
-        with:
-          version: '3.5'
+        run: |
+          echo "Installing Pandoc..."
+          PANDOC_VERSION="3.4"
+          wget -q https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb -O pandoc.deb || \
+          wget -q https://github.com/jgm/pandoc/releases/download/3.5/pandoc-3.5-1-amd64.deb -O pandoc.deb
+          sudo dpkg -i pandoc.deb
+          rm -f pandoc.deb
+          pandoc --version || echo "Pandoc installation may have issues"
 
       - name: Install system fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-roboto
+          sudo apt-get install -y fonts-roboto || sudo apt-get install -y fonts-roboto fonts-roboto-unhinted
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
+          export PATH="$HOME/texlive/bin/x86_64-linux:$PATH"
+          which xelatex
           latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
         
       - name: Generate HTML with Pandoc
