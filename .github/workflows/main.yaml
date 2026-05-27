@@ -38,40 +38,46 @@ jobs:
           echo "=== apt sources (for debugging) ==="
           cat /etc/apt/sources.list | head -20
 
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        id: texlive-cache
+        with:
+          path: ~/texlive
+          key: texlive-${{ runner.os }}-${{ hashFiles('.github/workflows/main.yaml') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
+
       - name: Install TeX Live (official installer, user-local)
         run: |
-          echo "=== Installing TeX Live via official installer (user home) ==="
-          # Download and extract the installer
-          wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz
-          cd install-tl-*
-
-          # Install into user home (no sudo needed)
           TEXLIVE_INSTALL_DIR="$HOME/texlive"
 
-          ./install-tl --no-interaction \
-            --scheme=medium \
-            --texdir="$TEXLIVE_INSTALL_DIR" \
-            --no-doc-install \
-            --no-src-install
+          if [ "${{ steps.texlive-cache.outputs.cache-hit }}" != "true" ]; then
+            echo "=== Installing TeX Live (cache miss) ==="
+            wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz
+            cd install-tl-*
 
-          # Add to PATH for current and future steps
+            ./install-tl --no-interaction \
+              --scheme=small \
+              --texdir="$TEXLIVE_INSTALL_DIR" \
+              --no-doc-install \
+              --no-src-install
+          else
+            echo "=== TeX Live cache hit - skipping full install ==="
+          fi
+
+          # Always ensure PATH is set and required packages are present
           echo "$TEXLIVE_INSTALL_DIR/bin/x86_64-linux" >> $GITHUB_PATH
           export PATH="$TEXLIVE_INSTALL_DIR/bin/x86_64-linux:$PATH"
 
-          echo "TeX Live installed to: $TEXLIVE_INSTALL_DIR"
-          echo "PATH now contains TeX binaries"
-
-          # Install additional packages we need
+          echo "Ensuring required packages are installed..."
           tlmgr install \
             latexmk xetex fontspec titlesec setspace microtype parskip \
             xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed \
-            zref needspace hyperref fancyhdr
+            zref needspace hyperref fancyhdr || true
 
-          # Verify installation
           echo "=== TeX verification ==="
-          which xelatex
-          which latexmk
-          xelatex --version | head -2
+          which xelatex || echo "xelatex not found"
+          which latexmk || echo "latexmk not found"
 
       - name: Install Pandoc
         run: |
@@ -90,7 +96,6 @@ jobs:
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          # TeX Live is installed user-locally at $HOME/texlive
           export PATH="$HOME/texlive/bin/x86_64-linux:$PATH"
           which xelatex
           latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
