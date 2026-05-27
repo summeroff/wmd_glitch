@@ -38,11 +38,34 @@ jobs:
           echo "=== apt sources (for debugging) ==="
           cat /etc/apt/sources.list | head -20
 
-      - name: Setup TeX Live
-        uses: teatimeguest/setup-texlive-action@v3
-        with:
-          packages: >-
-            latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed zref needspace hyperref fancyhdr
+      - name: Install TeX Live (official installer)
+        run: |
+          echo "=== Installing TeX Live via official installer ==="
+          # Download and extract the installer
+          wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz
+          cd install-tl-*
+
+          # Install with a reasonable scheme + our required packages
+          ./install-tl --no-interaction \
+            --scheme=medium \
+            --texdir=/usr/local/texlive \
+            --no-doc-install \
+            --no-src-install
+
+          # Add to PATH for this step and future steps
+          echo "/usr/local/texlive/bin/x86_64-linux" >> $GITHUB_PATH
+          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
+
+          # Install additional packages we need
+          tlmgr install \
+            latexmk xetex fontspec titlesec setspace microtype parskip \
+            xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed \
+            zref needspace hyperref fancyhdr
+
+          # Verify
+          which xelatex
+          which latexmk
+          xelatex --version | head -3
 
       - name: Install Pandoc
         run: |
@@ -61,10 +84,9 @@ jobs:
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          # The setup-texlive-action usually updates PATH via GITHUB_PATH.
-          # Add common installation locations as fallback.
-          export PATH="$HOME/texlive/bin/x86_64-linux:/usr/local/texlive/2024/bin/x86_64-linux:/opt/texlive/bin/x86_64-linux:$PATH"
-          which xelatex || echo "WARNING: xelatex still not found"
+          # TeX Live was installed to /usr/local/texlive
+          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
+          which xelatex
           latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
         
       - name: Generate HTML with Pandoc
