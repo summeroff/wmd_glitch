@@ -19,18 +19,22 @@ jobs:
             latexmk xetex fontspec titlesec setspace microtype parskip xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed zref needspace hyperref fancyhdr
 
       - name: Install Pandoc
-        uses: pandoc/actions/setup@v1
-        with:
-          version: '3.5'
+        run: |
+          wget https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-1-amd64.deb
+          sudo dpkg -i pandoc-3.4-1-amd64.deb
+          rm pandoc-3.4-1-amd64.deb
 
       - name: Install system fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-roboto
+          sudo apt-get install -y fonts-roboto || sudo apt-get install -y fonts-roboto fonts-roboto-unhinted
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          export PATH="/home/runner/work/_temp/setup-texlive-action/2024/bin/x86_64-linux:$PATH"
+          # The setup-texlive-action usually updates PATH via GITHUB_PATH.
+          # Add common installation locations as fallback.
+          export PATH="$HOME/texlive/bin/x86_64-linux:/usr/local/texlive/2024/bin/x86_64-linux:/opt/texlive/bin/x86_64-linux:$PATH"
+          which xelatex || echo "WARNING: xelatex still not found"
           latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
         
       - name: Generate HTML with Pandoc
