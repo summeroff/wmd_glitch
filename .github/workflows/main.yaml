@@ -38,23 +38,28 @@ jobs:
           echo "=== apt sources (for debugging) ==="
           cat /etc/apt/sources.list | head -20
 
-      - name: Install TeX Live (official installer)
+      - name: Install TeX Live (official installer, user-local)
         run: |
-          echo "=== Installing TeX Live via official installer ==="
+          echo "=== Installing TeX Live via official installer (user home) ==="
           # Download and extract the installer
           wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz
           cd install-tl-*
 
-          # Install with a reasonable scheme + our required packages
+          # Install into user home (no sudo needed)
+          TEXLIVE_INSTALL_DIR="$HOME/texlive"
+
           ./install-tl --no-interaction \
             --scheme=medium \
-            --texdir=/usr/local/texlive \
+            --texdir="$TEXLIVE_INSTALL_DIR" \
             --no-doc-install \
             --no-src-install
 
-          # Add to PATH for this step and future steps
-          echo "/usr/local/texlive/bin/x86_64-linux" >> $GITHUB_PATH
-          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
+          # Add to PATH for current and future steps
+          echo "$TEXLIVE_INSTALL_DIR/bin/x86_64-linux" >> $GITHUB_PATH
+          export PATH="$TEXLIVE_INSTALL_DIR/bin/x86_64-linux:$PATH"
+
+          echo "TeX Live installed to: $TEXLIVE_INSTALL_DIR"
+          echo "PATH now contains TeX binaries"
 
           # Install additional packages we need
           tlmgr install \
@@ -62,10 +67,11 @@ jobs:
             xcolor tocloft geometry kvoptions ltxcmds kvsetkeys mdframed \
             zref needspace hyperref fancyhdr
 
-          # Verify
+          # Verify installation
+          echo "=== TeX verification ==="
           which xelatex
           which latexmk
-          xelatex --version | head -3
+          xelatex --version | head -2
 
       - name: Install Pandoc
         run: |
@@ -84,8 +90,8 @@ jobs:
 
       - name: Compile LaTeX to PDF with XeLaTeX
         run: |
-          # TeX Live was installed to /usr/local/texlive
-          export PATH="/usr/local/texlive/bin/x86_64-linux:$PATH"
+          # TeX Live is installed user-locally at $HOME/texlive
+          export PATH="$HOME/texlive/bin/x86_64-linux:$PATH"
           which xelatex
           latexmk -pdf -xelatex -interaction=nonstopmode -f book_wmd_to_glitch.tex
         
