@@ -16,9 +16,9 @@ These elements are fictional and do not reflect the author’s personal views. *
 For a detailed lore summary, see [lore_summary.txt](lore_summary.txt).
 
 ### Brief Overview:
-Lila, a trendy LA influencer, participates in a cutting-edge VR trial, "Life as Another," immersing herself in the life of a paranoid, conspiracy-obsessed white male. Post-trial, she discovers that alcohol triggers a violent alter ego—her "White Male Drunk" (WMD) persona—hyper-aware and convinced of a vast conspiracy. As Lila navigates her fractured reality, she uncovers a web of human trafficking, gang wars, and a mysterious hospital overrun with strange patients. Her best friend Mia, tied to the Chinese mafia, is drawn into the chaos, forcing Lila to confront her shifting identity and the dangerous forces at play.
+Lila, a trendy LA influencer, participates in a cutting-edge VR trial, "Life as Another," immersing herself in the life of a paranoid, conspiracy-obsessed white male. Post-trial, she discovers that alcohol triggers a violent alter ego—her "White Male Drunk" (WMD) persona—hyper-aware and convinced of a vast conspiracy. As Lila navigates her fractured reality, she uncovers a web of human trafficking, gang wars, and a mysterious hospital overrun with strange patients. Her best friend Mia, tied to the Chinese mafia, is kidnapped by traffickers using her as leverage against her family. Lila must tap into her WMD persona to track Mia through a dangerous underworld of bars, warehouses, and a hotel hideout—facing brutal violence, multiple captives, immediate recapture by a rival gang, and a raw intimate connection forged in captivity. She battles Ethan (glimpsing wires—or imagining them) before fleeing to the mountains.
 
-The story escalates as Lila investigates the VR trial’s origins, battles shadowy operatives, and uncovers the truth about the trial’s creator—a developer whose mind was uploaded into the simulation, now fragmented within her as WMD. Blending psychological thriller, action, and sci-fi, the narrative probes the nature of reality, identity, and the existential risks of immersive technology. Cosmic visions, robotic ambiguities, and a high-stakes escape leave readers questioning what’s real.
+The story escalates as Lila investigates the VR trial’s origins in Mexico, battles shadowy operatives and Chinese intelligence, and uncovers the truth about the trial’s creator—a developer whose mind was uploaded into the simulation, now fragmented within her as WMD. Blending psychological thriller, action, and sci-fi, the narrative probes the nature of reality, identity, and the existential risks of immersive technology. Cosmic visions, robotic ambiguities, and a high-stakes escape leave readers questioning what’s real.
 
 ## Project Status
 The story is now **complete** with all three parts:
@@ -44,6 +44,7 @@ This project is licensed under the MIT License—see the [LICENSE](LICENSE) file
 - **Refinement and Editing**: Ongoing edits to polish the narrative and LaTeX formatting.
 - **Automated Builds**: GitHub Actions will be implemented to generate reader formats (PDF, EPUB, MOBI) for easier distribution.
 - **Supplementary Materials**: Potential additions include character profiles, lore expansions, or an illustrated version.
+- **Sequel / Next Parts**: A high-level adapted outline for three potential sequel arcs exists in [sequel_outline.md](sequel_outline.md). It continues directly from the flying-car escape and re-uses the existing organizations, ambiguities (Eli clones, Lila's hand, Globach upload), and thematic DNA while escalating the "human weapon" concept in darker, more systemic directions.
 
 ## Contributing
 While this is primarily a solo project, feedback and suggestions are welcome! Feel free to open an issue to report errors, inconsistencies, or ideas for improvement. Pull requests may be considered for future enhancements.
