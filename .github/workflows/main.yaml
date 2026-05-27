@@ -7,10 +7,36 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Debug - Runner Environment
+        run: |
+          echo "=== Runner Debug Information ==="
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Arch: $RUNNER_ARCH"
+          echo "Runner Name: $RUNNER_NAME"
+          echo ""
+          echo "=== Current PATH ==="
+          echo "$PATH" | tr ':' '\n'
+          echo ""
+          echo "=== Environment Variables (selected) ==="
+          env | grep -E '(HOME|GITHUB|RUNNER|PATH|USER)' | sort
+          echo ""
+          echo "=== Checking for common TeX Live locations ==="
+          ls -la /usr/local/texlive 2>/dev/null || echo "No /usr/local/texlive"
+          ls -la ~/texlive 2>/dev/null || echo "No ~/texlive"
+          which tex 2>/dev/null || echo "No 'tex' in PATH"
+          which xelatex 2>/dev/null || echo "No 'xelatex' in PATH"
+          which latexmk 2>/dev/null || echo "No 'latexmk' in PATH"
+          echo ""
+          echo "=== Disk space ==="
+          df -h
+          echo ""
+          echo "=== apt sources (for debugging) ==="
+          cat /etc/apt/sources.list | head -20
 
       - name: Setup TeX Live
         uses: teatimeguest/setup-texlive-action@v3
@@ -20,9 +46,13 @@ jobs:
 
       - name: Install Pandoc
         run: |
-          wget https://github.com/jgm/pandoc/releases/download/3.4/pandoc-3.4-1-amd64.deb
-          sudo dpkg -i pandoc-3.4-1-amd64.deb
-          rm pandoc-3.4-1-amd64.deb
+          echo "Installing Pandoc..."
+          PANDOC_VERSION="3.4"
+          wget -q https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb -O pandoc.deb || \
+          wget -q https://github.com/jgm/pandoc/releases/download/3.5/pandoc-3.5-1-amd64.deb -O pandoc.deb
+          sudo dpkg -i pandoc.deb
+          rm -f pandoc.deb
+          pandoc --version || echo "Pandoc installation may have issues"
 
       - name: Install system fonts
         run: |
